@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MainActivity"
+    android:background="@color/light_blue">
+
+    <ImageButton
+        android:id="@+id/settings_button"
+        android:layout_width="@dimen/dimen_32dp"
+        android:layout_height="@dimen/dimen_32dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/settings"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:layout_alignParentStart="true"/>
+
+    <RelativeLayout
+        android:id="@+id/wallet_address_details"
+        android:layout_width="wrap_content"
+        android:layout_height="213dp"
+        android:layout_below="@+id/settings_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_8dp">
+
+        <ImageView
+            android:id="@+id/card_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/rounded_pattern" />
+
+        <TextView
+            android:id="@+id/balance_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card_background"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginTop="24dp"
+            android:text="0.000000014"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_22sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/card_background"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@+id/balance_textView"
+            android:text="@string/token_string"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/value_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/balance_textView"
+            android:layout_alignStart="@+id/card_background"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:alpha="0.6"
+            android:text="$0 USD @ 100/SPC"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/value_textView"
+            android:layout_alignStart="@+id/card_background"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0.6"
+            android:text="@string/card_public_info"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <TextView
+            android:id="@+id/public_key_textView"
+            android:layout_width="331dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_alignEnd="@+id/card_background"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="32dp"
+            android:text="1DkyBEKt5S2GDtv7aQw6rQepAvnsRyHoYM"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/public_key_textView"
+            android:layout_alignBottom="@+id/card_background"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/btn_rounded"
+            android:fontFamily="sans-serif-medium"
+            android:text="COPY"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_alignEnd="@+id/settings_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/text_size_fixed_11sp"
+        android:layout_marginEnd="@dimen/dimen_8dp"
+        android:background="@drawable/btn_rounded"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/buy_text"
+        android:textAllCaps="false"
+        colo
+        android:textSize="12sp" />
+</RelativeLayout>

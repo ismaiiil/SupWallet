@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SupWallet</string>
+    <string name="Next">Next</string>
+    <string name="Skip">Skip</string>
+    <string name="slider1_text">Thank You for choosing SupCoin!</string>
+    <string name="slider_2_text">Send Money Globally with ease!</string>
+    <string name="slider_3_text">Secure and Decentralized. Enjoy!</string>
+    <string name="buy_text">BUY SUPCOIN</string>
+    <string name="token_string">SPC</string>
+    <string name="card_public_info">Your Public SupCoin address</string>
+</resources>
