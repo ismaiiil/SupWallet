@@ -1,6 +1,8 @@
 package com.example.supwallet.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getViews();
-        setEvents();
 
     }
 
@@ -28,20 +29,13 @@ public class MainActivity extends AppCompatActivity {
         settingsBtn = findViewById(R.id.settings_button);
     }
 
-    private void setEvents(){
-        settingsBtn.setOnClickListener(v -> {
-
-            ImageView animationTarget =  this.findViewById(R.id.settings_button);
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_around_center_point_single);
-            animationTarget.startAnimation(animation);
-
-
-
-        });
-    }
 
 
     public void settings_button_clicked(View view) {
+        ImageView animationTarget =  this.findViewById(R.id.settings_button);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_around_center_point_single);
+        animationTarget.startAnimation(animation);
 
+        startActivity(new Intent(MainActivity.this,SettingsActivity.class));
     }
 }
