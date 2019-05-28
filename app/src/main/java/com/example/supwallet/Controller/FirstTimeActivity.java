@@ -1,11 +1,11 @@
-package com.example.supwallet.Activities;
+package com.example.supwallet.Controller;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -39,24 +39,15 @@ public class FirstTimeActivity extends AppCompatActivity {
 
 
         //When user press skip, start Main Activity
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSkip.setOnClickListener(view -> startMainActivity());
 
+        btnNext.setOnClickListener(view -> {
+            int currentPage = viewPager.getCurrentItem()+1;
+            if(currentPage < layouts.length) {
+                //move to next page
+                viewPager.setCurrentItem(currentPage);
+            } else {
                 startMainActivity();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentPage = viewPager.getCurrentItem()+1;
-                if(currentPage < layouts.length) {
-                    //move to next page
-                    viewPager.setCurrentItem(currentPage);
-                } else {
-                    startMainActivity();
-                }
             }
         });
         layouts = new int[]{R.layout.slider_1,R.layout.slider_2, R.layout.slider_3};

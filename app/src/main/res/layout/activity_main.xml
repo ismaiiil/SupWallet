@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity"
+    tools:context=".Controller.MainActivity"
     android:background="@color/light_blue">
 
     <ImageButton
@@ -16,7 +16,8 @@
         android:scaleType="fitCenter"
         android:layout_marginTop="@dimen/dimen_8dp"
         android:layout_marginStart="@dimen/dimen_8dp"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:onClick="settings_button_clicked"/>
 
     <RelativeLayout
         android:id="@+id/wallet_address_details"
@@ -133,6 +134,5 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/buy_text"
         android:textAllCaps="false"
-        colo
         android:textSize="12sp" />
 </RelativeLayout>

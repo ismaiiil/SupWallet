@@ -1,10 +1,10 @@
-package com.example.supwallet.Activities;
+package com.example.supwallet.Controller;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.supwallet.Core.LoadWallet;
-import com.example.supwallet.Core.Utils.CompletionHandler;
+import com.example.supwallet.Model.LoadWallet;
 import com.example.supwallet.R;
-
-import java.util.EventListener;
 
 public class LoadingActivity extends AppCompatActivity {
     public static final int STARTUP_DELAY = 300;
@@ -33,12 +30,9 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        new LoadWallet(new CompletionHandler<Boolean>() {
-            @Override
-            public void OnFinish(Boolean response) {
-                startActivity(new Intent(LoadingActivity.this,FirstTimeActivity.class));
-                finish();
-            }
+        new LoadWallet(response -> {
+            startActivity(new Intent(LoadingActivity.this,FirstTimeActivity.class));
+            finish();
         }).start();
 
     }
