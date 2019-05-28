@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/default_window_background">
+
+    <RelativeLayout
+        android:id="@+id/center_block"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_rounded"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40dp"
+        android:background="@color/wallet_toolbar_buttons_background"
+        android:layout_alignBottom="@id/center_block"/>
+
+</RelativeLayout>
