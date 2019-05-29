@@ -31,7 +31,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
 
         new LoadWallet(response -> {
-            startActivity(new Intent(LoadingActivity.this,FirstTimeActivity.class));
+            startActivity(new Intent(LoadingActivity.this,MainActivity.class));
             finish();
         }).start();
 

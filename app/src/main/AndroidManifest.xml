@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.SettingsActivity"></activity>
+        <activity android:name=".Controller.NetworkSettingsActivity"></activity>
         <activity android:name=".Controller.FirstTimeActivity" />
         <activity android:name=".Controller.LoadingActivity">
             <intent-filter>

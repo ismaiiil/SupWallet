@@ -8,12 +8,12 @@
         android:layout_marginTop="@dimen/dimen_40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/btn_rounded"
+        android:background="@drawable/rounder_light_blue"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40dp"
-        android:background="@color/wallet_toolbar_buttons_background"
+        android:background="@color/light_blue"
         android:layout_alignBottom="@id/center_block"/>
 
 </RelativeLayout>
