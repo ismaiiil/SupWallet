@@ -12,7 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.supwallet.Model.LoadWallet;
+import com.example.supwallet.Model.FileManagers.LoadWallet;
 import com.example.supwallet.R;
 
 public class LoadingActivity extends AppCompatActivity {
