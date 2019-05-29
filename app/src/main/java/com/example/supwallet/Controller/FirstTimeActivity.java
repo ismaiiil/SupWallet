@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.supwallet.Presenter.Adapters.MyPagerAdapter;
 import com.example.supwallet.R;
 
 public class FirstTimeActivity extends AppCompatActivity {
