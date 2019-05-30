@@ -28,4 +28,6 @@
     <string name="backup_title">Backup</string>
     <string name="connected_to_text">Connected To:</string>
     <string name="none_connected">None</string>
+    <string name="other_available_nodes">Other available nodes:</string>
+    <string name="connect">Connect</string>
 </resources>

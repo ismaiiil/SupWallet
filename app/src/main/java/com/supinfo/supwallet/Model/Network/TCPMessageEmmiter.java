@@ -5,6 +5,7 @@ package com.supinfo.supwallet.Model.Network;
 import android.util.Log;
 
 import com.supinfo.shared.TCPMessage;
+import com.supinfo.shared.TCPMessageType;
 import com.supinfo.supwallet.Model.Network.NetworkUtils.TCPUtils;
 
 
@@ -42,22 +43,15 @@ public class TCPMessageEmmiter extends Thread {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
                 objectOutputStream.writeObject(tcpMessage);
                 objectOutputStream.flush();
-                objectOutputStream.close();
 
-//            //TESTING WALLET RECEIVING SERVER RESPONSE IN THE SOCKET ITSELF INSTEAD OF A NEW SOCKET RESPONSE
-//            InputStream inputStream = socket.getInputStream();
-//            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-//            TCPMessage tcpMessage = (TCPMessage) objectInputStream.readObject();
-//            cLogger.log(LogLevel.NETWORK, "Successfully sent message and server responded with a: " + tcpMessage.getTcpMessageType());
-//
-//
-//            objectInputStream.close();
-//
-//            if(tcpMessage.getTcpMessageType() == TCPMessageType.CLOSE_SOCKET) {
-//                socket.close();
-//                cLogger.log(LogLevel.NETWORK, "TCPEmmiter has sent its message, now closing the socket based on response: " + tcpMessage.getTcpMessageType());
-//
-//            }
+                //TESTING WALLET RECEIVING SERVER RESPONSE IN THE SOCKET ITSELF INSTEAD OF A NEW SOCKET RESPONSE
+                InputStream inputStream = socket.getInputStream();
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                TCPMessage tcpMessage = (TCPMessage) objectInputStream.readObject();
+                Log.i("NETWORK", "Successfully sent message and server responded with a: " + tcpMessage.getTcpMessageType()+ tcpMessage.getData());
+
+                objectOutputStream.close();
+                objectInputStream.close();
 
                 socket.close();
 
@@ -73,6 +67,8 @@ public class TCPMessageEmmiter extends Thread {
             } catch (SocketTimeoutException e) {
                 Log.e("NETWORK",  "Socket timeout after " + timeout);
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }else{
