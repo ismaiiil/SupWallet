@@ -1,4 +1,4 @@
-package com.example.supwallet;
+package com.supinfo.supwallet;
 
 import org.junit.Test;
 

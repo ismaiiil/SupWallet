@@ -1,4 +1,4 @@
-package com.example.supwallet.Controller;
+package com.supinfo.supwallet.Controller;
 
 import android.content.Intent;
 import androidx.annotation.Nullable;
@@ -12,8 +12,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.supwallet.Model.FileManagers.LoadWallet;
-import com.example.supwallet.R;
+import com.supinfo.supwallet.Model.FileManagers.LoadWallet;
+import com.supinfo.supwallet.R;
 
 public class LoadingActivity extends AppCompatActivity {
     public static final int STARTUP_DELAY = 300;

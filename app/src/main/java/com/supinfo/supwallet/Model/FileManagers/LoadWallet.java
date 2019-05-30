@@ -1,7 +1,7 @@
-package com.example.supwallet.Model.FileManagers;
+package com.supinfo.supwallet.Model.FileManagers;
 
 
-import com.example.supwallet.Model.Utils.CompletionHandler;
+import com.supinfo.supwallet.Model.Utils.CompletionHandler;
 
 
 public class LoadWallet extends Thread {

@@ -1,4 +1,4 @@
-package com.example.supwallet.Model.Network.Models;
+package com.supinfo.shared;
 
 public enum TCPMessageType {
     VERIFY,

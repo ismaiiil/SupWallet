@@ -1,4 +1,4 @@
-package com.example.supwallet.Controller;
+package com.supinfo.supwallet.Controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.supwallet.Presenter.Adapters.MyPagerAdapter;
-import com.example.supwallet.R;
+import com.supinfo.supwallet.Presenter.Adapters.MyPagerAdapter;
+import com.supinfo.supwallet.R;
 
 public class FirstTimeActivity extends AppCompatActivity {
     private ViewPager viewPager;

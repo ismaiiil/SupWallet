@@ -1,4 +1,4 @@
-package com.example.supwallet.Presenter.Adapters;
+package com.supinfo.supwallet.Presenter.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.supwallet.R;
+import com.supinfo.supwallet.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.supwallet.Controller;
+package com.supinfo.supwallet.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
-import com.example.supwallet.R;
+import com.supinfo.supwallet.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,6 +1,4 @@
-package com.example.supwallet.Model.Network.Models;
-
-import com.example.supwallet.Model.Utils.StringUtil;
+package com.supinfo.shared;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -8,6 +6,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 public class TCPMessage<T> implements Serializable {
+    private static final long serialVersionUID = 123456L;
     private TCPMessageType tcpMessageType;
     private String messageHash;
     private long dateTime;

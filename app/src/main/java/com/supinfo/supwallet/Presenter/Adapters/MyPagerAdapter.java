@@ -1,4 +1,4 @@
-package com.example.supwallet.Presenter.Adapters;
+package com.supinfo.supwallet.Presenter.Adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

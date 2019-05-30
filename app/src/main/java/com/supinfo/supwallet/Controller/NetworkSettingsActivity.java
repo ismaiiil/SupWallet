@@ -1,4 +1,4 @@
-package com.example.supwallet.Controller;
+package com.supinfo.supwallet.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.supwallet.Model.Network.Models.TCPMessage;
-import com.example.supwallet.Model.Network.Models.TCPMessageType;
-import com.example.supwallet.Model.Network.TCPMessageEmmiter;
-import com.example.supwallet.Presenter.Adapters.MyRecyclerViewAdapter;
-import com.example.supwallet.R;
+import com.supinfo.shared.TCPMessage;
+import com.supinfo.shared.TCPMessageType;
+import com.supinfo.supwallet.Model.Network.TCPMessageEmmiter;
+import com.supinfo.supwallet.Presenter.Adapters.MyRecyclerViewAdapter;
+import com.supinfo.supwallet.R;
 
 import java.util.ArrayList;
 
@@ -58,8 +58,10 @@ public class NetworkSettingsActivity extends AppCompatActivity {
     }
 
     public void connect_button_clicked(View view) {
-        TCPMessageEmmiter tcpMessageEmmiter = new TCPMessageEmmiter(
-                new TCPMessage<>(TCPMessageType.WALLET_CONNECT,false,0,null),connectIP.getText().toString(),8888,3000);
+        TCPMessage<String> tcpMessage =  new TCPMessage<>(TCPMessageType.WALLET_CONNECT,false,0,null);
+        tcpMessage.setData("TEST DATA");
+        TCPMessageEmmiter tcpMessageEmmiter = new TCPMessageEmmiter(tcpMessage
+               ,connectIP.getText().toString(),8888,3000);
         tcpMessageEmmiter.start();
     }
 }

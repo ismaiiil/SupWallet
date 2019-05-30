@@ -1,4 +1,4 @@
-package com.example.supwallet.Model.Network.NetworkUtils;
+package com.supinfo.supwallet.Model.Network.NetworkUtils;
 
 public class TCPUtils {
     public static boolean isValidIP(String ip) {

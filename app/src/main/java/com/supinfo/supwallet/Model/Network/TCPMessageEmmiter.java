@@ -1,11 +1,11 @@
-package com.example.supwallet.Model.Network;
+package com.supinfo.supwallet.Model.Network;
 
 
 
 import android.util.Log;
 
-import com.example.supwallet.Model.Network.Models.TCPMessage;
-import com.example.supwallet.Model.Network.NetworkUtils.TCPUtils;
+import com.supinfo.shared.TCPMessage;
+import com.supinfo.supwallet.Model.Network.NetworkUtils.TCPUtils;
 
 
 import java.io.*;
