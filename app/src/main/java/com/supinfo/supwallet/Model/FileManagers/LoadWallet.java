@@ -16,8 +16,9 @@ public class LoadWallet extends Thread {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            success.onResponse(false,e);
         }
-        success.OnFinish(true);
+        success.onResponse(true,null);
     }
 
 

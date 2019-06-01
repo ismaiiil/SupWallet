@@ -121,5 +121,18 @@
         android:alpha="0.5"
         android:text="9999ms" />
 
+    <ImageButton
+        android:id="@+id/reload_button"
+        android:layout_width="@dimen/dimen_32dp"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_alignTop="@+id/other_nodes_text"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="-5dp"
+        android:layout_toEndOf="@+id/other_nodes_text"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/wallet_refresh"
+        android:onClick="reload_button_clicked"/>
+
 
 </RelativeLayout>

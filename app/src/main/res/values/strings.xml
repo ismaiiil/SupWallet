@@ -30,4 +30,5 @@
     <string name="none_connected">None</string>
     <string name="other_available_nodes">Other available nodes:</string>
     <string name="connect">Connect</string>
+    <string name="unreachable">Unreachable</string>
 </resources>

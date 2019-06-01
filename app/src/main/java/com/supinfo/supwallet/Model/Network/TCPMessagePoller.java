@@ -43,39 +43,46 @@ public class TCPMessagePoller extends Thread {
                 // create an object output stream from the output stream so we can send an object through it
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
                 objectOutputStream.writeObject(tcpMessage);
-                objectOutputStream.flush();
+
 
                 //TESTING WALLET RECEIVING SERVER RESPONSE IN THE SOCKET ITSELF INSTEAD OF A NEW SOCKET RESPONSE
                 InputStream inputStream = socket.getInputStream();
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 TCPMessage tcpMessage = (TCPMessage) objectInputStream.readObject();
-                Log.i("NETWORK", "Successfully sent message and server responded with a: " + tcpMessage.getTcpMessageType()+ tcpMessage.getData());
 
+                objectOutputStream.flush();
                 objectOutputStream.close();
                 objectInputStream.close();
 
                 socket.close();
-
-                response.OnFinish(tcpMessage);
+                Log.i("NETWORK", "Successfully sent message and server responded with a: " + tcpMessage.getTcpMessageType()+ tcpMessage.getData());
+                response.onResponse(tcpMessage,null);
 
 
             } catch (UnknownHostException e){
                 Log.e("NETWORK"," You may have input an invalid IP");
+                response.onResponse(null,e);
             } catch (ConnectException e){
                 Log.e("NETWORK",  hostname + " is unreachable!");
                 //this is liekly a connection timeout when we try to reach a dead IP, in the case of which we start a checknodes
                 //thread in the background to see if all nodes are alive, and take proper action
+                response.onResponse(null,e);
             } catch (NoRouteToHostException e){
                 //do nothing PingPongTask will handle all unreachable hosts
+                response.onResponse(null,e);
             } catch (SocketTimeoutException e) {
                 Log.e("NETWORK",  "Socket timeout after " + timeout);
+                response.onResponse(null,e);
             } catch (IOException e) {
                 e.printStackTrace();
+                response.onResponse(null,e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+                response.onResponse(null,e);
             }
         }else{
             Log.e("NETWORK","Invalid IP supplied(self IP or not an IP)!");
+            response.onResponse(null,new Exception());
         }
 
     }

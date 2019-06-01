@@ -6,6 +6,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -30,9 +31,13 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        new LoadWallet(response -> {
-            startActivity(new Intent(LoadingActivity.this,MainActivity.class));
-            finish();
+        new LoadWallet( (response,error) -> {
+            if(error == null){
+                startActivity(new Intent(LoadingActivity.this,MainActivity.class));
+                finish();
+            }else{
+                Log.e(this.getClass().getName(),"Error loading wallet");
+            }
         }).start();
 
     }

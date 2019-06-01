@@ -36,7 +36,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String ip = mData.get(position).getIp();
-        String latency = String.valueOf(mData.get(position).getLatency());
+        String latency;
+        if (mData.get(position).getLatency() >= 0){
+            latency = String.valueOf(mData.get(position).getLatency()) + " ms";
+        }else{
+            latency = "Unreachable";
+        }
         holder.ip_textView.setText(ip);
         holder.latency_textView.setText(latency);
     }
