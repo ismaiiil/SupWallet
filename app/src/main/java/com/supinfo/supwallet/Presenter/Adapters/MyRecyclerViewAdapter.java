@@ -10,16 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.supinfo.supwallet.R;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private ArrayList<IpRowModel> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public MyRecyclerViewAdapter(Context context, List<String> data) {
+    public MyRecyclerViewAdapter(Context context, ArrayList<IpRowModel> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -34,8 +35,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        String ip = mData.get(position).getIp();
+        String latency = String.valueOf(mData.get(position).getLatency());
+        holder.ip_textView.setText(ip);
+        holder.latency_textView.setText(latency);
     }
 
     // total number of rows
@@ -47,11 +50,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView ip_textView;
+        TextView latency_textView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnimalName);
+            ip_textView = itemView.findViewById(R.id.ip_address_column);
+            latency_textView = itemView.findViewById(R.id.latency_column);
             itemView.setOnClickListener(this);
         }
 
@@ -62,7 +67,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public IpRowModel getItem(int id) {
         return mData.get(id);
     }
 
@@ -75,4 +80,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
+
+
 }

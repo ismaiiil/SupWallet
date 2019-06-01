@@ -3,6 +3,7 @@ package com.supinfo.supwallet.Controller;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,12 +11,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
 
 import com.supinfo.supwallet.R;
+
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton settingsBtn;
+    private RadioButton isConnectedRadio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +30,32 @@ public class MainActivity extends AppCompatActivity {
 
         getViews();
 
+        ColorStateList colorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked}
+                },
+                new int[]{
+
+                        RED
+                        , GREEN,
+                }
+        );
+        isConnectedRadio.setButtonTintList(colorStateList);
+        isConnectedRadio.setChecked(false);
+
+
     }
 
     private void getViews(){
-        settingsBtn = findViewById(R.id.buy_button);
+        settingsBtn = findViewById(R.id.settings_button);
+        isConnectedRadio = findViewById(R.id.is_connected_radio);
     }
 
 
 
     public void settings_button_clicked(View view) {
-        ImageView animationTarget =  this.findViewById(R.id.buy_button);
+        ImageView animationTarget =  this.findViewById(R.id.settings_button);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_around_center_point_single);
         animationTarget.startAnimation(animation);
 

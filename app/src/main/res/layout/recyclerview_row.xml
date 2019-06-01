@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
+    android:id="@+id/row_parent_"
     android:background="?android:attr/selectableItemBackground"
     >
 
     <TextView
-        android:id="@+id/tvAnimalName"
+        android:id="@+id/ip_address_column"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_18sp"
+        android:layout_marginStart="0dp"
+        android:text="255.255.255.255"
         />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/latency_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="10000ms"
+        android:textSize="@dimen/text_size_18sp" />
+
+</RelativeLayout>

@@ -6,22 +6,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.supinfo.shared.TCPMessage;
-import com.supinfo.shared.TCPMessageType;
-import com.supinfo.supwallet.Model.Network.TCPMessageEmmiter;
+import com.supinfo.shared.Network.TCPMessage;
+import com.supinfo.shared.Network.TCPMessageType;
+import com.supinfo.supwallet.Model.Network.TCPMessageOperations;
+import com.supinfo.supwallet.Model.Network.TCPMessagePoller;
+import com.supinfo.supwallet.Model.Utils.CompletionHandler;
+import com.supinfo.supwallet.Presenter.Adapters.IpRowModel;
 import com.supinfo.supwallet.Presenter.Adapters.MyRecyclerViewAdapter;
 import com.supinfo.supwallet.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class NetworkSettingsActivity extends AppCompatActivity {
 
     MyRecyclerViewAdapter adapter;
     EditText connectIP;
+    TextView latencyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +36,15 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_network_settings);
 
         connectIP = findViewById(R.id.connect_edit_text);
+        latencyText = findViewById(R.id.latency_text_view);
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("176.152.147.65");
-        animalNames.add("154.357.157.29");
-        animalNames.add("46.154.5.454");
-        animalNames.add("25.255.15.14");
-        animalNames.add("44.544.48.4");
+        ArrayList<IpRowModel> animalNames = new ArrayList<>();
+        animalNames.add(new IpRowModel("176.152.147.65",10));
+        animalNames.add(new IpRowModel("176.22.147.65",10));
+        animalNames.add(new IpRowModel("176.2.147.65",10));
+        animalNames.add(new IpRowModel("176.4.147.65",10));
+        animalNames.add(new IpRowModel("176.5.147.65",10));
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.ip_list_recycler_view);
@@ -58,10 +66,13 @@ public class NetworkSettingsActivity extends AppCompatActivity {
     }
 
     public void connect_button_clicked(View view) {
-        TCPMessage<String> tcpMessage =  new TCPMessage<>(TCPMessageType.WALLET_CONNECT,false,0,null);
-        tcpMessage.setData("TEST DATA");
-        TCPMessageEmmiter tcpMessageEmmiter = new TCPMessageEmmiter(tcpMessage
-               ,connectIP.getText().toString(),8888,3000);
-        tcpMessageEmmiter.start();
+        TCPMessageOperations.getLatency(connectIP.getText().toString(), response -> {
+            runOnUiThread(() -> latencyText.setText(String.format(Locale.getDefault(),"%d",response)));
+        });
+
+        TCPMessageOperations.getIPLatencyList(connectIP.getText().toString(), response -> {
+            Log.i("NETWORK",response.toString());
+        });
+
     }
 }

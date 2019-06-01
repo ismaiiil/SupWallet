@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Presenter.Adapters.MyPagerAdapter;
 import com.supinfo.supwallet.R;
 
@@ -83,14 +84,14 @@ public class FirstTimeActivity extends AppCompatActivity {
     }
 
     private boolean isFirstTimeStartApp() {
-        SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
-        return ref.getBoolean("FirstTimeStartFlag", true);
+        SharedPreferences ref = getApplicationContext().getSharedPreferences(ENV.GROUP_PREF, Context.MODE_PRIVATE);
+        return ref.getBoolean(ENV.PREF_IS_FIRST_TIME, true);
     }
 
     private void setFirstTimeStartStatus() {
-        SharedPreferences ref = getApplicationContext().getSharedPreferences("IntroSliderApp", Context.MODE_PRIVATE);
+        SharedPreferences ref = getApplicationContext().getSharedPreferences(ENV.GROUP_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = ref.edit();
-        editor.putBoolean("FirstTimeStartFlag", false);
+        editor.putBoolean(ENV.PREF_IS_FIRST_TIME, false);
         editor.apply();
     }
 

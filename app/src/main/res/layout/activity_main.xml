@@ -4,12 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.MainActivity"
-    android:background="@color/light_blue">
 
+    android:background="@color/light_blue"
+    tools:context=".Controller.MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:id="@+id/status_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_style_thin"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Connected" />
+
+            <RadioButton
+                android:id="@+id/is_connected_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/textView4"
+                android:clickable="false" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/buy_button"
+        android:id="@+id/settings_button"
         android:layout_width="@dimen/dimen_32dp"
         android:layout_height="@dimen/dimen_32dp"
         android:layout_alignParentEnd="true"
@@ -27,7 +62,7 @@
         android:id="@+id/wallet_address_details"
         android:layout_width="wrap_content"
         android:layout_height="213dp"
-        android:layout_below="@+id/buy_button"
+        android:layout_below="@+id/settings_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
@@ -120,25 +155,28 @@
             android:background="@drawable/rounder_grey_blue"
             android:fontFamily="sans-serif-medium"
             android:text="COPY"
-            android:textColor="@color/colorPrimaryDark"
             android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="12sp" />
 
 
     </RelativeLayout>
 
     <Button
-        android:id="@+id/settings_button"
+        android:id="@+id/buy_coin_button"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
 
+        android:layout_alignTop="@+id/settings_button"
+        android:layout_alignBottom="@+id/settings_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:layout_marginTop="0dp"
+
+        android:layout_marginBottom="0dp"
         android:background="@drawable/rounder_grey_blue"
         android:fontFamily="sans-serif-medium"
         android:text="@string/buy_text"
         android:textAllCaps="false"
-        android:textSize="12sp"
-
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginStart="@dimen/dimen_8dp"
-        android:layout_alignParentStart="true"/>
+        android:textSize="12sp" />
 </RelativeLayout>

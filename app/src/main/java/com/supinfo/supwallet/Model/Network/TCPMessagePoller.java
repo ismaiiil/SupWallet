@@ -4,10 +4,9 @@ package com.supinfo.supwallet.Model.Network;
 
 import android.util.Log;
 
-import com.supinfo.shared.TCPMessage;
-import com.supinfo.shared.TCPMessageType;
-import com.supinfo.supwallet.Model.Network.NetworkUtils.TCPUtils;
-
+import com.supinfo.shared.Network.TCPMessage;
+import com.supinfo.shared.Utils.StringUtil;
+import com.supinfo.supwallet.Model.Utils.CompletionHandler;
 
 import java.io.*;
 import java.net.ConnectException;
@@ -17,23 +16,25 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-public class TCPMessageEmmiter extends Thread {
+public class TCPMessagePoller extends Thread {
     private String hostname;
     private TCPMessage tcpMessage;
     private int port;
     private Socket socket;
     private int timeout;
+    private CompletionHandler<TCPMessage> response;
 
 
-    public TCPMessageEmmiter(TCPMessage tcpMessage, String hostname, int port, int timeout){
+    public TCPMessagePoller(TCPMessage tcpMessage, String hostname, int port, int timeout, CompletionHandler<TCPMessage> response){
         this.tcpMessage = tcpMessage;
         this.hostname = hostname;
         this.port = port;
         this.timeout = timeout;
+        this.response = response;
     }
     @Override
     public void run() {
-        if(TCPUtils.isValidIP(hostname)){
+        if(StringUtil.isValidIP(hostname)){
             try {
                 Log.i("NETWORK","Trying to send Socket Message on" + hostname);
                 socket = new Socket();
@@ -54,6 +55,8 @@ public class TCPMessageEmmiter extends Thread {
                 objectInputStream.close();
 
                 socket.close();
+
+                response.OnFinish(tcpMessage);
 
 
             } catch (UnknownHostException e){
