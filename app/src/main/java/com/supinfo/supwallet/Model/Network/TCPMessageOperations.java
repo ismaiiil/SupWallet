@@ -63,6 +63,8 @@ public class TCPMessageOperations {
                 }
 
                 list.onResponse(latencies,null);
+            }else{
+                list.onResponse(null,error);
             }
 
         });

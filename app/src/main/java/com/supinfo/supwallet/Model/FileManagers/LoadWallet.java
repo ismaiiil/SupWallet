@@ -13,7 +13,7 @@ public class LoadWallet extends Thread {
     @Override
     public void run() {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
             success.onResponse(false,e);

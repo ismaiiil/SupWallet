@@ -31,4 +31,7 @@
     <string name="other_available_nodes">Other available nodes:</string>
     <string name="connect">Connect</string>
     <string name="unreachable">Unreachable</string>
+    <string name="waiting">Waiting</string>
+    <string name="loading">loading</string>
+    <string name="no_data_available">No Other Peers Available</string>
 </resources>

@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:id="@+id/row_parent_"
+    android:id="@+id/row_parent"
     android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
     >
 
     <TextView
