@@ -1,5 +1,9 @@
 package com.supinfo.supwallet.Model;
 
+import com.supinfo.shared.transaction.TransactionOutput;
+
+import java.util.HashMap;
+
 public class ENV {
     final public static int portNumber = 8888;
     final public static int defaultPollTimeout = 10000;
@@ -7,5 +11,5 @@ public class ENV {
     final public static String PREF_IS_FIRST_TIME = "PREF_IS_FIRST_TIME";
     public static final String PREF_CONNECTED_IP = "PREF_CONNECTED_IP";
     public static String defaultBootNode = "192.168.100.2"; //18.139.62.95 192.168.100.2
-
+    public static HashMap<String, TransactionOutput> localUTXOs  = new HashMap<String,TransactionOutput>();
 }

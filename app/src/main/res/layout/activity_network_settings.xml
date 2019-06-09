@@ -113,32 +113,17 @@
             layout="@layout/recyclerview_row"/>
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ip_list_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="325dp"
-        android:layout_below="@+id/bootnode_layout"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/dimen_24dp"
-        android:layout_marginTop="@dimen/dimen_12dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="@dimen/dimen_24dp"
-        android:background="@drawable/border_style">
 
-
-    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignStart="@id/ip_list_recycler_view"
-        android:layout_alignTop="@id/ip_list_recycler_view"
+        android:layout_alignStart="@id/swipe_refresh_layout"
+        android:layout_alignTop="@id/swipe_refresh_layout"
         android:layout_marginTop="@dimen/dimen_40dp"
-        android:layout_alignEnd="@id/ip_list_recycler_view"
-        android:layout_alignBottom="@id/ip_list_recycler_view"
+        android:layout_alignEnd="@id/swipe_refresh_layout"
+        android:layout_alignBottom="@id/swipe_refresh_layout"
         android:text="@string/no_data_available"
         android:textAlignment="center" />
 
@@ -176,5 +161,26 @@
         app:srcCompat="@drawable/wallet_refresh"
         android:onClick="reload_button_clicked"/>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="325dp"
+        android:layout_below="@+id/bootnode_layout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="@dimen/dimen_24dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ip_list_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_style">
 
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

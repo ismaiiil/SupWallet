@@ -1,14 +1,9 @@
 package com.supinfo.supwallet.Controller;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,7 +13,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.supinfo.shared.Utils.StringUtil;
@@ -27,6 +28,7 @@ import com.supinfo.supwallet.Model.Network.TCPMessageOperations;
 import com.supinfo.supwallet.Presenter.Adapters.MyRecyclerViewAdapter;
 import com.supinfo.supwallet.R;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class NetworkSettingsActivity extends AppCompatActivity {
@@ -43,6 +45,7 @@ public class NetworkSettingsActivity extends AppCompatActivity {
     RelativeLayout bootnodeLayout;
     Button connectButton;
     ImageButton reloadButton;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,16 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         bootnodeLayout = findViewById(R.id.row_parent);
         connectButton = findViewById(R.id.connect_button);
         reloadButton = findViewById(R.id.reload_button);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
 
+        //setup refresh layout
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark));
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            refreshRecyclerView(connectedToIpTextView.getText().toString());
+            reloadButton.setClickable(false);
+            connectButton.setEnabled(false);
+        });
 
         // set up the RecyclerView
 
@@ -69,8 +80,10 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+        MyRecyclerViewAdapter newAdapter = new MyRecyclerViewAdapter(this, new ArrayList<>());
+        recyclerView.setAdapter(newAdapter);
 
-       refreshWholeView();
+        refreshWholeView();
 
         bootnodeLayout.setOnClickListener(v -> {
             //showSnack(v,"TEST");
@@ -205,6 +218,7 @@ public class NetworkSettingsActivity extends AppCompatActivity {
 
     public void startAnimateReload(){
         //connectButton.setClickable(false);
+        swipeRefreshLayout.setRefreshing(true);
         connectButton.setEnabled(false);
         reloadButton.setClickable(false);
         shouldAnimateReload = true;
@@ -222,8 +236,6 @@ public class NetworkSettingsActivity extends AppCompatActivity {
                 animationTarget.startAnimation(animation);
                 }else{
                     shouldAnimateReload = true;
-                    reloadButton.setClickable(true);
-                    connectButton.setEnabled(true);
                 }
             }
 
@@ -238,12 +250,25 @@ public class NetworkSettingsActivity extends AppCompatActivity {
     public void clearAnimateReload(){
         ImageView animationTarget =  this.findViewById(R.id.reload_button);
         shouldAnimateReload = false;
+        swipeRefreshLayout.setRefreshing(false);
+        reloadButton.setClickable(true);
+        connectButton.setEnabled(true);
 
 
     }
 
     public void showSnack(View view,String text){
         Snackbar.make(view,text, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
