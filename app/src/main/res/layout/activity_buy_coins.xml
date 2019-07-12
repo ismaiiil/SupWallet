@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buy_coins_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.supinfo.supwallet.Controller.BuyCoinsActivity">
+
+    <include
+        layout="@layout/background_template"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:id="@+id/change_node_button"
+        android:layout_width="150dp"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_below="@+id/available_coins_text"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+
+        android:background="@drawable/rounder_grey_blue"
+        android:ems="7"
+        android:onClick="change_node_button_clicked"
+        android:text="@string/change_node" />
+
+    <Button
+        android:id="@+id/buy_coins_button"
+        android:layout_width="150dp"
+        android:layout_height="@dimen/dimen_40dp"
+
+        android:layout_below="@+id/price_text"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:background="@drawable/rounder_grey_blue"
+        android:ems="7"
+        android:onClick="buy_coins_button_clicked"
+        android:text="@string/buy_text" />
+
+    <TextView
+        android:id="@+id/placeholder_available_coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="@string/available_coins_on_node"
+        android:textSize="@dimen/text_size_18sp" />
+
+
+    <TextView
+        android:id="@+id/placeholder_price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/amount_to_buy_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="Price/$ :"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <TextView
+        android:id="@+id/available_coins_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_toEndOf="@+id/placeholder_available_coins"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/rounder_grey_blue"
+        android:ems="9"
+        android:text="@string/nil"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <TextView
+        android:id="@+id/price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_alignStart="@+id/amount_to_buy_edit_text"
+        android:layout_alignTop="@+id/placeholder_price_text"
+        android:layout_alignEnd="@+id/amount_to_buy_edit_text"
+        android:layout_marginStart="0dp"
+
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/rounder_grey_blue"
+        android:ems="9"
+        android:text="@string/nil"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <TextView
+        android:id="@+id/placeholder_amount_to_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_node_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="@string/amount_to_buy"
+        android:textSize="@dimen/text_size_18sp" />
+
+
+    <EditText
+        android:id="@+id/amount_to_buy_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignTop="@+id/placeholder_amount_to_buy"
+        android:layout_alignEnd="@+id/available_coins_text"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toEndOf="@+id/placeholder_amount_to_buy"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounder_grey_blue"
+        android:digits="0123456789."
+        android:ems="10"
+        android:inputType="phone"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buy_coins_button"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginBottom="@dimen/dimen_24dp"
+        />
+
+
+</RelativeLayout>

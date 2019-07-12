@@ -130,14 +130,16 @@
 
         <TextView
             android:id="@+id/public_key_textView"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="95dp"
             android:layout_below="@+id/textView3"
             android:layout_alignEnd="@+id/card_background"
+            android:layout_alignBottom="@+id/card_background"
             android:layout_alignParentStart="true"
             android:layout_marginStart="32dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="0dp"
             android:text="1DkyBEKt5S2GDtv7aQw6rQepAvnsRyHoYM"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_18sp"
@@ -146,12 +148,10 @@
         <Button
             android:layout_width="50dp"
             android:layout_height="24dp"
-            android:layout_below="@+id/public_key_textView"
-            android:layout_alignBottom="@+id/card_background"
+            android:layout_alignTop="@+id/public_key_textView"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="-30dp"
             android:layout_marginEnd="33dp"
-            android:layout_marginBottom="21dp"
             android:background="@drawable/rounder_grey_blue"
             android:fontFamily="sans-serif-medium"
             android:text="COPY"
@@ -178,5 +178,6 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/buy_text"
         android:textAllCaps="false"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:onClick="buy_button_clicked"/>
 </RelativeLayout>

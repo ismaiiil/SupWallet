@@ -1,10 +1,8 @@
 package com.supinfo.supwallet.Controller;
 
+import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.ViewPropertyAnimatorCompat;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +11,21 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+
+import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Model.FileManagers.LoadWallet;
 import com.supinfo.supwallet.R;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends BaseActivity {
     public static final int STARTUP_DELAY = 300;
     public static final int ANIM_ITEM_DURATION = 1000;
     public static final int ITEM_DELAY = 300;
 
     private boolean animationStarted = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,14 +35,20 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        new LoadWallet( (response,error) -> {
+        SharedPreferences ref = getApplicationContext().getSharedPreferences(ENV.GROUP_PREF, Context.MODE_PRIVATE);
+        ENV.connectedIp = ref.getString(ENV.PREF_CONNECTED_IP, ENV.defaultBootNode);
+
+        new LoadWallet(this.getApplicationContext(),(response,error) -> {
             if(error == null){
+
                 startActivity(new Intent(LoadingActivity.this,MainActivity.class));
                 finish();
             }else{
                 Log.e(this.getClass().getName(),"Error loading wallet");
             }
         }).start();
+
+
 
     }
 

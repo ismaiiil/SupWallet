@@ -13,6 +13,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 public class AndroidStringUtil {
@@ -65,6 +66,31 @@ public class AndroidStringUtil {
         }
         try {
             return  (factory != null ? factory.generatePublic(new X509EncodedKeySpec(byte_pubkey)) : null);
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static PrivateKey getPrivateKeyFromString(String stringkey){
+        //converting string to Bytes
+        byte[] byte_privkey  = android.util.Base64.decode(stringkey, android.util.Base64.DEFAULT);
+        System.out.println("BYTE KEY::" + byte_privkey);
+
+
+        //converting it back to public key
+        KeyFactory factory = null;
+        try {
+            factory = KeyFactory.getInstance("ECDSA", "SC");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+        try {
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(
+                    byte_privkey);
+            return  (factory != null ? factory.generatePrivate(privateKeySpec) : null);
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }

@@ -15,13 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.supinfo.shared.Utils.StringUtil;
 import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Model.Network.TCPMessageOperations;
@@ -31,7 +29,7 @@ import com.supinfo.supwallet.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class NetworkSettingsActivity extends AppCompatActivity {
+public class NetworkSettingsActivity extends BaseActivity {
 
     MyRecyclerViewAdapter adapter;
     EditText connectIP;
@@ -116,6 +114,7 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         SharedPreferences ref = getApplicationContext().getSharedPreferences(ENV.GROUP_PREF, Context.MODE_PRIVATE);
         String storedIP = ref.getString(ENV.PREF_CONNECTED_IP, ENV.defaultBootNode);
         connectedToIpTextView.setText(storedIP);
+        ENV.connectedIp = storedIP;
 
         TCPMessageOperations.getLatency(storedIP, (response, error) -> {
             if (error == null) {
@@ -129,7 +128,7 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         refreshRecyclerView(storedIP);
     }
 
-    public void back_button_network_clicked(View view) {
+    public void back_button_clicked(View view) {
         finish();
     }
 
@@ -152,6 +151,7 @@ public class NetworkSettingsActivity extends AppCompatActivity {
                         editor.putString(ENV.PREF_CONNECTED_IP, ipaddress);
                         editor.apply();
                         connectedToIpTextView.setText(ipaddress);
+                        ENV.connectedIp = ipaddress;
                         latencyText.setText(R.string.waiting);
                         startAnimateReload();
                         TCPMessageOperations.getLatency(ipaddress, (response,error) -> {
@@ -253,13 +253,8 @@ public class NetworkSettingsActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(false);
         reloadButton.setClickable(true);
         connectButton.setEnabled(true);
-
-
     }
 
-    public void showSnack(View view,String text){
-        Snackbar.make(view,text, Snackbar.LENGTH_LONG).show();
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)

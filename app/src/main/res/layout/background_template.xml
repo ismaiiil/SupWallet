@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/default_window_background">
 
     <RelativeLayout
@@ -15,5 +17,16 @@
         android:layout_height="@dimen/dimen_40dp"
         android:background="@color/light_blue"
         android:layout_alignBottom="@id/center_block"/>
+    <ImageButton
+        android:id="@+id/back_button_network"
+        android:layout_width="@dimen/dimen_32dp"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/dimen_8dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:background="@android:color/transparent"
+        android:onClick="back_button_clicked"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_action_back" />
 
 </RelativeLayout>

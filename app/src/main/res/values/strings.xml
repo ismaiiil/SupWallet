@@ -34,4 +34,8 @@
     <string name="waiting">Waiting</string>
     <string name="loading">loading</string>
     <string name="no_data_available">No Other Peers Available</string>
+    <string name="available_coins_on_node">Coins on node connected</string>
+    <string name="change_node">Change Node</string>
+    <string name="amount_to_buy">Amount To Buy:</string>
+    <string name="nil">nil</string>
 </resources>
