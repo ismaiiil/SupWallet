@@ -33,21 +33,11 @@ public class AndroidStringUtil {
         }
         return output;
     }
-//    //Verifies a String signature
-//    public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
-//        try {
-//            Signature ecdsaVerify = Signature.getInstance("ECDSA", "SC");
-//            ecdsaVerify.initVerify(publicKey);
-//            ecdsaVerify.update(data.getBytes());
-//            return ecdsaVerify.verify(signature);
-//        }catch(Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public static String getStringFromKey(Key key) {
         return android.util.Base64.encodeToString(key.getEncoded(), android.util.Base64.DEFAULT);
     }
+
 
     public static PublicKey getPublicKeyFromString(String stringkey){
         //converting string to Bytes

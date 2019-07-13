@@ -7,6 +7,7 @@ import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Model.Network.TCPMessagePoller;
 import com.supinfo.supwallet.Model.Utils.CompletionHandler;
 
+import java.math.BigDecimal;
 import java.security.PublicKey;
 import java.util.HashMap;
 
@@ -18,19 +19,19 @@ public class TransactionOperations {
 //
 //    }
 
-    public static void getAvailableNodeCoins(CompletionHandler<Float> coins){
+    public static void getAvailableNodeCoins(CompletionHandler<BigDecimal> coins){
         TCPMessage m = new TCPMessage<>(TCPMessageType.WALLET_NODE_BALANCE,null);
         new TCPMessagePoller(m, ENV.connectedIp, ENV.portNumber, ENV.defaultPollTimeout, (response, error) -> {
             if (error == null) {
-                coins.onResponse((Float) response.getData(),null);
+                coins.onResponse((BigDecimal) response.getData(),null);
             }else{
                 coins.onResponse(null,error);
             }
 
         }).start();
     }
-    public static void buyCoins(float coinAmount,CompletionHandler<Transaction> pendingTransaction){
-        HashMap<PublicKey,Float> _recipients  = new HashMap<>();
+    public static void buyCoins(BigDecimal coinAmount,CompletionHandler<Transaction> pendingTransaction){
+        HashMap<PublicKey,BigDecimal> _recipients  = new HashMap<>();
         _recipients.put(ENV.wallet.getPublic(),coinAmount);
         Transaction transaction = new Transaction(null,_recipients,null);
         TCPMessage m = new TCPMessage<>(TCPMessageType.WALLET_BUY_COINS,transaction);
