@@ -38,4 +38,5 @@
     <string name="change_node">Change Node</string>
     <string name="amount_to_buy">Amount To Buy:</string>
     <string name="nil">nil</string>
+    <string name="send">SEND</string>
 </resources>

@@ -4,10 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:id="@+id/root_main"
     android:background="@color/light_blue"
     tools:context=".Controller.MainActivity">
 
+
+    <TextView
+        android:id="@+id/amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/send_button"
+        android:layout_alignTop="@+id/network_settings_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="154dp"
+        android:layout_toStartOf="@+id/send_to_edit_text"
+        android:text="Amount:"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <EditText
+        android:id="@+id/amount_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_above="@+id/send_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="147dp"
+        android:background="@drawable/rounder_grey_blue"
+        android:digits="0123456789."
+        android:ems="10"
+        android:inputType="phone"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/send_to_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_above="@+id/send_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="86dp"
+        android:background="@drawable/rounder_grey_blue"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/send_to_text"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/send_button"
+        android:layout_alignTop="@+id/network_settings_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="93dp"
+        android:layout_toStartOf="@+id/send_to_edit_text"
+        android:text="Send To:"
+        android:textSize="@dimen/text_size_18sp" />
 
     <RelativeLayout
         android:id="@+id/status_layout"
@@ -180,4 +239,18 @@
         android:textAllCaps="false"
         android:textSize="12sp"
         android:onClick="buy_button_clicked"/>
+
+    <Button
+        android:id="@+id/send_button"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/rounder_grey_blue"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
+
 </RelativeLayout>

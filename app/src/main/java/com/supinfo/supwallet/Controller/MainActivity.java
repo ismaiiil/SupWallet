@@ -7,16 +7,24 @@ import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.supinfo.shared.transaction.TransactionOutput;
 import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Model.Network.TCPMessageOperations;
 import com.supinfo.supwallet.Model.Utils.AndroidStringUtil;
+import com.supinfo.supwallet.Model.transactionHelpers.TransactionOperations;
 import com.supinfo.supwallet.R;
+
+import java.math.BigDecimal;
+import java.security.PublicKey;
+import java.util.ArrayList;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
@@ -26,8 +34,12 @@ public class MainActivity extends BaseActivity {
     private ImageButton settingsBtn;
     private RadioButton isConnectedRadio;
     private TextView publicKeyText;
+    private TextView balanceText;
     private Handler handler;
     private Runnable runnableCode;
+    private EditText amountEditText;
+    private EditText sendToEditText;
+    private Button sendButton;
 
 
     @Override
@@ -41,6 +53,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
                 setConnectedStatus();
+                setUTXOS();
                 handler.postDelayed(this, 20000);
             }
         };
@@ -52,6 +65,31 @@ public class MainActivity extends BaseActivity {
         isConnectedRadio.setButtonTintList(colorStateList);
         isConnectedRadio.setChecked(false);
         publicKeyText.setText(AndroidStringUtil.getStringFromKey(ENV.wallet.getPublic()));
+        sendButton = findViewById(R.id.send_button);
+        sendButton.setOnClickListener(v -> {
+            //(sendToEditText!=null&&amountEditText!=null)&&
+            if((sendToEditText.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty())){
+                showSnack(v,"Please input valid publicKey and coin amount!");
+
+            }else{
+                PublicKey recipientKey = null;
+                BigDecimal amount = new BigDecimal(0);
+                try{
+                    recipientKey = AndroidStringUtil.getPublicKeyFromString(sendToEditText.getText().toString());
+                    amount = new BigDecimal(amountEditText.getText().toString());
+
+                }catch (Exception e){
+                    showSnack(v,"Please input valid publicKey and coin amount!\"!");
+                }
+                if(recipientKey != null){
+                    TransactionOperations.sendCoins(amount, recipientKey, (response, error) -> showSnack(v,response));
+                }
+
+
+
+            }
+
+        });
 
     }
 
@@ -59,6 +97,10 @@ public class MainActivity extends BaseActivity {
         settingsBtn = findViewById(R.id.settings_button);
         isConnectedRadio = findViewById(R.id.is_connected_radio);
         publicKeyText = findViewById(R.id.public_key_textView);
+        balanceText = findViewById(R.id.balance_textView);
+        sendToEditText =findViewById(R.id.send_to_edit_text);
+        amountEditText = findViewById(R.id.amount_to_buy_edit_text);
+
     }
 
 
@@ -107,6 +149,31 @@ public class MainActivity extends BaseActivity {
         handler.removeCallbacks(runnableCode);
     }
 
+    private void setUTXOS(){
+        TCPMessageOperations.getUTXOS((response, error) -> {
+            if(error == null){
+                ENV.userUTXOs = (ArrayList<TransactionOutput>) response.clone();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BigDecimal sum = new BigDecimal(0);
+                        for (TransactionOutput tout:response) {
+                            sum = sum.add(tout.value);
+                        }
+                        balanceText.setText(sum.toString());
+                    }
+                });
+            }else{
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        balanceText.setText("Balance Unavailable");
+                    }
+                });
+            }
+        });
+    }
+
     private void setConnectedStatus(){
         TCPMessageOperations.getLatency(ENV.connectedIp, (response, error) -> {
             if(error == null){
@@ -122,4 +189,5 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
 }

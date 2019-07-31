@@ -2,6 +2,7 @@ package com.supinfo.supwallet.Model.Network;
 
 import com.supinfo.shared.Network.TCPMessage;
 import com.supinfo.shared.Network.TCPMessageType;
+import com.supinfo.shared.transaction.TransactionOutput;
 import com.supinfo.supwallet.Model.ENV;
 import com.supinfo.supwallet.Model.Utils.CompletionHandler;
 import com.supinfo.supwallet.Presenter.Adapters.IpRowModel;
@@ -68,5 +69,20 @@ public class TCPMessageOperations {
             }
 
         });
+    }
+
+    public static void getUTXOS( CompletionHandler<ArrayList<TransactionOutput>> utxoList){
+        TCPMessage m = new TCPMessage<>(TCPMessageType.WALLET_FETCH_UTXOS,ENV.wallet.getPublic());
+        new TCPMessagePoller(m, ENV.connectedIp, ENV.portNumber, ENV.defaultPollTimeout, (response,error) -> {
+            if (error == null) {
+                ArrayList<TransactionOutput> utxos = (ArrayList<TransactionOutput>) response.getData();
+                utxoList.onResponse(utxos,null);
+            }else{
+                utxoList.onResponse(null,error);
+            }
+
+
+        }).start();
+
     }
 }
