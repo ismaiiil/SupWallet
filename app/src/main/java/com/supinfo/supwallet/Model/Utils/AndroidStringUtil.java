@@ -1,5 +1,7 @@
 package com.supinfo.supwallet.Model.Utils;
 
+import android.util.Log;
+
 import com.supinfo.shared.Utils.StringUtil;
 import com.supinfo.shared.transaction.Transaction;
 import com.supinfo.shared.transaction.TransactionOutput;
@@ -35,7 +37,8 @@ public class AndroidStringUtil {
             byte[] realSig = dsa.sign();
             output = realSig;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            Log.e("ERROR","An error occured while applying ecdsa!");
         }
         return output;
     }
@@ -44,14 +47,31 @@ public class AndroidStringUtil {
         return android.util.Base64.encodeToString(key.getEncoded(), android.util.Base64.DEFAULT);
     }
     public static byte[] generateSignature(PrivateKey privateKey, Transaction transaction) {
-        if(transaction.sender != null){
-            String data = getStringFromKey(transaction.sender)
-                    + getMapAsString(transaction);
-            return applyECDSASig(privateKey, data);
-        }else{
-            String data = getMapAsString(transaction);
-            return applyECDSASig(privateKey, data);
+        String data = getStringFromKey(transaction.sender)
+                + getMapAsString(transaction);
+        data = data.trim().replaceAll("\n", "");
+        return applyECDSASig(privateKey, data);
+
+    }
+    public static boolean verifySignature(Transaction transaction) {
+        String data = getStringFromKey(transaction.sender)
+                + getMapAsString(transaction);
+        data = data.trim().replaceAll("\n", "");
+        return verifyECDSASig(transaction.sender, data, transaction.signature);
+
+    }
+    //Verifies a String signature
+    public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
+        try {
+            Signature ecdsaVerify = Signature.getInstance("ECDSA", "SC");
+            ecdsaVerify.initVerify(publicKey);
+            ecdsaVerify.update(data.getBytes());
+            return ecdsaVerify.verify(signature);
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+            Log.e("ERROR","An error occured while verifying the signature!");
         }
+        return false;
     }
 
     private static String getMapAsString(Transaction transaction) {

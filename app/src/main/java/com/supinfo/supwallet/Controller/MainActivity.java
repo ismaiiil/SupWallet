@@ -65,31 +65,8 @@ public class MainActivity extends BaseActivity {
         isConnectedRadio.setButtonTintList(colorStateList);
         isConnectedRadio.setChecked(false);
         publicKeyText.setText(AndroidStringUtil.getStringFromKey(ENV.wallet.getPublic()));
+
         sendButton = findViewById(R.id.send_button);
-        sendButton.setOnClickListener(v -> {
-            //(sendToEditText!=null&&amountEditText!=null)&&
-            if((sendToEditText.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty())){
-                showSnack(v,"Please input valid publicKey and coin amount!");
-
-            }else{
-                PublicKey recipientKey = null;
-                BigDecimal amount = new BigDecimal(0);
-                try{
-                    recipientKey = AndroidStringUtil.getPublicKeyFromString(sendToEditText.getText().toString());
-                    amount = new BigDecimal(amountEditText.getText().toString());
-
-                }catch (Exception e){
-                    showSnack(v,"Please input valid publicKey and coin amount!\"!");
-                }
-                if(recipientKey != null){
-                    TransactionOperations.sendCoins(amount, recipientKey, (response, error) -> showSnack(v,response));
-                }
-
-
-
-            }
-
-        });
 
     }
 
@@ -99,7 +76,7 @@ public class MainActivity extends BaseActivity {
         publicKeyText = findViewById(R.id.public_key_textView);
         balanceText = findViewById(R.id.balance_textView);
         sendToEditText =findViewById(R.id.send_to_edit_text);
-        amountEditText = findViewById(R.id.amount_to_buy_edit_text);
+        amountEditText = findViewById(R.id.amount_edit_text);
 
     }
 
@@ -190,4 +167,27 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    public void send_coins_clicked(View view) {
+        //(sendToEditText!=null&&amountEditText!=null)&&
+        if((sendToEditText.getEditableText().toString().isEmpty() || amountEditText.getEditableText().toString().isEmpty())){
+            showSnack(view,"Please input valid publicKey and coin amount!");
+
+        }else{
+            PublicKey recipientKey = null;
+            BigDecimal amount = new BigDecimal(0);
+            try{
+                recipientKey = AndroidStringUtil.getPublicKeyFromString(sendToEditText.getEditableText().toString());
+                amount = new BigDecimal(amountEditText.getEditableText().toString());
+
+            }catch (Exception e){
+                showSnack(view,"Please input valid publicKey and coin amount!\"!");
+            }
+            if(recipientKey != null){
+                TransactionOperations.sendCoins(amount, recipientKey, (response, error) -> showSnack(view,response));
+            }
+
+
+
+        }
+    }
 }

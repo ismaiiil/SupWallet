@@ -250,6 +250,7 @@
         android:background="@drawable/rounder_grey_blue"
         android:fontFamily="sans-serif-medium"
         android:text="@string/send"
+        android:onClick="send_coins_clicked"
         android:textAllCaps="false"
         android:textSize="12sp" />
 

@@ -1,5 +1,7 @@
 package com.supinfo.supwallet.Model.transactionHelpers;
 
+import android.util.Log;
+
 import com.supinfo.shared.Network.TCPMessage;
 import com.supinfo.shared.Network.TCPMessageType;
 import com.supinfo.shared.transaction.Transaction;
@@ -74,16 +76,20 @@ public class TransactionOperations {
     public static void sendCoins(BigDecimal coinAmount,PublicKey recipient, CompletionHandler<String> status){
         HashMap<PublicKey,BigDecimal> _recipients  = new HashMap<>();
         _recipients.put(recipient,coinAmount);
-        ArrayList<TransactionOutput> minUTXOS = getMinUTXOForPublicKey(recipient,coinAmount);
+        ArrayList<TransactionOutput> minUTXOS = getMinUTXOForPublicKey(ENV.wallet.getPublic(),coinAmount);
         ArrayList<TransactionInput> _inputs = new ArrayList<>();
         for (TransactionOutput tout : minUTXOS) {
             _inputs.add(new TransactionInput(tout.id, tout));
         }
         Transaction transaction = new Transaction(ENV.wallet.getPublic(),_recipients,new ArrayList<>());
+        transaction.sender = ENV.wallet.getPublic();
         transaction.inputs = _inputs;
         //put change back to us
         transaction.recipients.put(ENV.wallet.getPublic(),transaction.getInputsValue().subtract(coinAmount));
+
+        //generate id before adding outputs, so that the outputs can have a parent txn id
         transaction.transactionId = AndroidStringUtil.calulateHashTransaction(transaction);
+
         //As for POC ill demonstrate to the recipient and a change back to the user base
         ArrayList<TransactionOutput> _txnOutputs = new ArrayList<>();
         TransactionOutput _tout = new TransactionOutput(recipient, coinAmount, transaction.transactionId, null);
@@ -93,6 +99,7 @@ public class TransactionOperations {
         _txnOutputs.add(_tout);
         _txnOutputs.add(_change);
         transaction.outputs = _txnOutputs;
+        //sign the txn!
         transaction.signature = AndroidStringUtil.generateSignature(ENV.wallet.getPrivate(), transaction);
         TCPMessage<Transaction> transactionTCPMessage=  new TCPMessage<>(TCPMessageType.PROPAGATE_NEW_TXN_MEMPOOL,0, transaction);
         new TCPMessagePoller(transactionTCPMessage, ENV.connectedIp, ENV.portNumber, ENV.defaultPollTimeout, (response, error) -> {
@@ -107,5 +114,6 @@ public class TransactionOperations {
                 status.onResponse(null,error);
             }
         }).start();
+        Log.d("VERIFYSIG", "sig: " + AndroidStringUtil.verifySignature(transaction));
     }
 }
