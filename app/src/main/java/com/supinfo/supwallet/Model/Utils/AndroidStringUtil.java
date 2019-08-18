@@ -24,6 +24,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 
+import static java.util.Map.Entry.comparingByValue;
+
 public class AndroidStringUtil {
     //Applies ECDSA Signature and returns the result ( as bytes ).
     public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
@@ -77,10 +79,14 @@ public class AndroidStringUtil {
     private static String getMapAsString(Transaction transaction) {
         HashMap<PublicKey, BigDecimal> _recipients = transaction.recipients;
         StringBuilder output = new StringBuilder();
-        for (HashMap.Entry<PublicKey, BigDecimal> entry : _recipients.entrySet()) {
-            String _t = getStringFromKey(entry.getKey()) + entry.getValue().toString();
+        _recipients.entrySet().stream().sorted(comparingByValue()).forEach(publicKeyBigDecimalEntry -> {
+            String _t = getStringFromKey(publicKeyBigDecimalEntry.getKey()) + publicKeyBigDecimalEntry.getValue().toString();
             output.append(_t);
-        }
+        });
+//        for (HashMap.Entry<PublicKey, BigDecimal> entry : _recipients.entrySet()) {
+//            String _t = getStringFromKey(entry.getKey()) + entry.getValue().toString();
+//            output.append(_t);
+//        }
         return output.toString();
     }
     public static PublicKey getPublicKeyFromString(String stringkey){
